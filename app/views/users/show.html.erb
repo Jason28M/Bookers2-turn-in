@@ -1,0 +1,42 @@
+<% if @user.errors.any? %>
+<span class="error">error occured</span>
+<% @user.errors.full_messages.each do |message| %>
+	<%= message %>
+	<% end %>
+<% end %>
+
+<p class="text-success"><% if flash[:success_user_edit] %></p>
+<% end %>
+
+<div class="container">
+	<div class="row">
+		<%= render 'books/list', book: @book_new, user: @user %>
+		<div class="col-xs-9">
+			<h1>Book detail</h1>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Image</th>
+						<th>Title</th>
+						<th>Opinion</th>
+						<th colspan="1"></th>
+						<th colspan="1"></th>
+					</tr>
+				<tbody>
+					<% @books.each do |book| %>
+					<tr>
+						<td><%= attachment_image_tag @user, :profile_image,fallback:"no_image.jpg", size:"50x50" %></td>
+						<td><%= link_to book.title, book_path(book.id) %></td>
+						<td><%= book.body %></td>
+						<% if @user.id == current_user.id %>
+						<td><%= link_to "Edit", edit_book_path(book) %></td>
+						<td><%= link_to "Destroy", book_path(book), method: :delete, "data-confirm" =>"本当に消しますか？" %></td>
+						<% end %>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<p class="text-right">CopyRight Infratop.inc</p>

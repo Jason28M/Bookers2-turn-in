@@ -1,0 +1,18 @@
+<% if @user.errors.any? %>
+<span class="text-danger">error!<br></span>
+<% @user.errors.full_messages.each do |message| %>
+	<span class="text-danger"><%= message %><br></span>
+	<% end %>
+<% end %>
+<h1>User info</h1>
+<%= form_for(@user) do |f| %>
+	<h3>Name</h3>
+	<%= f.text_field :name %>
+	<h3>Image</h3>
+	<%= attachment_image_tag(@user,:profile_image, fallback:"no_image.jpg", size:"50x50") %>
+	<%= f.attachment_field :profile_image, placeholder: "プロフィール画像", class:"user-edit-form" %>
+	<h3>Introduction</h3>
+	<%= f.text_area :introduction %>
+	<%= f.submit 'Update User' %>
+<% end %>
+
