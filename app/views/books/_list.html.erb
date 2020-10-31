@@ -9,7 +9,7 @@
 				<span class="text-primary">introduction</span>
 				<span><%= user.introduction %></span>
 			</div>
-			<% if current_user.id = user.id %>
+			<% if current_user.id == user.id %>
 			<%= link_to edit_user_path(current_user.id) do %>
 			<button type="button" class="btn btn-default" aria-label="Left Align"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></button>
 			<% end %>

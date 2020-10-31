@@ -40,14 +40,17 @@ before_action :authenticate_user!
 
   def destroy
   	book = Book.find(params[:id])
+    if book.user.id != current_user.id
+      redirect_to user_path(current_user.id) and return
+    end
   	book.destroy
     redirect_to "/books"
   end
 
   def show
     	@book = Book.find(params[:id])
-      @user = User.find(current_user.id)
       @book_new = Book.new
+      @user = @book.user
   end
 
   def books
